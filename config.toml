@@ -45,7 +45,7 @@ enableInlineShortcodes = true
     whatsapp = "201271476215" # بدون +
     address = "مصر- الشرقية - الزقازيق"
     email = "michaelnabilofficial1@gmail.com"
-    image = "/images/officially.webp" # ضع صورتك في static/images
+    image = "/images/doctor-profile.jpg" # ضع صورتك في static/images
 
   # روابط السوشيال ميديا
   [params.social]
