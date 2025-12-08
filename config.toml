@@ -1,6 +1,6 @@
 baseURL = "https://portfoliohubs.github.io/portfolio/"
 languageCode = "ar"
-title = "د. محمد علي - طب وجراحة الأسنان"
+title = "دكتور مايكل نبيل طبيب اسنان "
 theme = [] # لا نستخدم ثيم خارجي
 
 # إعدادات البناء والأمان
@@ -31,21 +31,21 @@ enableInlineShortcodes = true
 
 # بيانات الموقع والطبيب (المصدر الوحيد للبيانات)
 [params]
-  description = "الموقع الرسمي للدكتور محمد علي، متخصص في تجميل وزراعة الأسنان."
+  description = "الموقع الرسمي للدكتور مايكل نبيل، متخصص في تجميل وزراعة الأسنان."
   # الألوان الرئيسية (للتحكم بالثيم)
   color_primary = "#2563eb"   # أزرق طبي
   color_secondary = "#1e40af" # أزرق غامق
 
   # بيانات الطبيب (تستخدم في الموقع والـ CV والـ SEO)
   [params.doctor]
-    name = "د. محمد علي"
+    name = "دكتور مايكل نبيل"
     title = "أخصائي تجميل وزراعة الأسنان"
     bio = "خبرة أكثر من 10 سنوات في رسم الابتسامة باستخدام أحدث تقنيات طب الأسنان الرقمي."
-    phone = "+201000000000"
-    whatsapp = "201000000000" # بدون +
-    address = "القاهرة، مصر - شارع التسعين"
-    email = "dr.contact@example.com"
-    image = "/images/doctor-profile.jpg" # ضع صورتك في static/images
+    phone = "+201271476215"
+    whatsapp = "201271476215" # بدون +
+    address = "مصر- الشرقية - الزقازيق"
+    email = "michaelnabilofficial1@gmail.com"
+    image = "/images/officially.webp" # ضع صورتك في static/images
 
   # روابط السوشيال ميديا
   [params.social]
