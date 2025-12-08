@@ -1,0 +1,24 @@
+<header class="header">
+    <div class="container navbar">
+        <a href="{{ .Site.BaseURL }}" class="logo">
+            <i class="fas fa-tooth"></i> {{ .Site.Params.doctor.name }}
+        </a>
+
+        <nav>
+            <ul class="nav-menu">
+                {{ range .Site.Menus.main }}
+                <li><a href="{{ .URL }}" class="nav-link">{{ .Name }}</a></li>
+                {{ end }}
+                <li>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        
+        <button id="theme-toggle-mobile" class="theme-toggle d-md-none" style="display: none;">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+</header>
