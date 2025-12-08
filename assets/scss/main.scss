@@ -1,0 +1,148 @@
+/* 1. Variables & Root Settings */
+:root {
+    --color-primary: #2563eb;
+    --color-secondary: #1e40af;
+    --color-text: #1f2937;
+    --color-text-light: #6b7280;
+    --bg-body: #f3f4f6;
+    --bg-card: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --font-main: 'Cairo', sans-serif;
+    --nav-height: 70px;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --color-primary: #60a5fa;
+    --color-secondary: #3b82f6;
+    --color-text: #f9fafb;
+    --color-text-light: #d1d5db;
+    --bg-body: #111827;
+    --bg-card: rgba(31, 41, 55, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* 2. Global Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-body);
+    color: var(--color-text);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+    padding-top: var(--nav-height); /* Prevent header overlap */
+}
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+img { max-width: 100%; height: auto; display: block; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* 3. Utilities & Components */
+.section { padding: 4rem 0; }
+.text-center { text-align: center; }
+.text-primary { color: var(--color-primary); }
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+.btn:hover { background: var(--color-secondary); transform: translateY(-2px); }
+.btn-outline { background: transparent; border-color: var(--color-primary); color: var(--color-primary); }
+.btn-outline:hover { background: var(--color-primary); color: white; }
+
+/* Glass Cards */
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+/* 4. Header & Navbar */
+.header {
+    position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex; align-items: center;
+}
+body.dark-mode .header { background: rgba(17, 24, 39, 0.8); }
+
+.navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.logo { font-size: 1.5rem; font-weight: 900; color: var(--color-primary); }
+
+.nav-menu { display: flex; gap: 1.5rem; }
+.nav-link { font-weight: 600; font-size: 1rem; }
+.nav-link:hover { color: var(--color-primary); }
+
+.theme-toggle { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: var(--color-text); }
+
+/* 5. Footer */
+.footer {
+    background: var(--bg-card);
+    border-top: 1px solid var(--glass-border);
+    padding: 3rem 0; margin-top: 4rem;
+}
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+
+/* 6. Floating Buttons (WhatsApp & Top) */
+.floating-container {
+    position: fixed; bottom: 2rem; right: 2rem;
+    display: flex; flex-direction: column; gap: 1rem; z-index: 999;
+}
+.btn-float {
+    width: 55px; height: 55px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 1.5rem; border: none; cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s;
+}
+.btn-float.whatsapp { background: #25D366; }
+.btn-float.whatsapp:hover { background: #128C7E; transform: scale(1.1); }
+.btn-float.scroll-top { background: var(--color-primary); display: none; } /* Hidden initially */
+
+/* 7. Mobile Adjustments */
+@media (max-width: 768px) {
+    .nav-menu { display: none; } /* Hide Desktop Menu */
+    .floating-container { bottom: 5rem; right: 1rem; } /* Move up for Bottom Nav */
+    body { padding-bottom: 70px; } /* Space for Bottom Nav */
+}
+
+/* 8. Bottom Nav (Mobile Only) */
+.bottom-nav {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background: var(--bg-card);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid var(--glass-border);
+    display: flex; justify-content: space-around;
+    padding: 0.8rem 0; z-index: 1001;
+    display: none; /* Hidden on Desktop */
+}
+@media (max-width: 768px) { .bottom-nav { display: flex; } }
+
+.b-nav-item {
+    display: flex; flex-direction: column; align-items: center;
+    font-size: 0.75rem; color: var(--color-text-light); gap: 4px;
+}
+.b-nav-item i { font-size: 1.2rem; }
+.b-nav-item.active, .b-nav-item:hover { color: var(--color-primary); }
+
+/* 9. CV Hidden Template (For HTML2PDF) */
+#cv-template {
+    display: none; background: white; color: black; padding: 40px;
+    font-family: sans-serif; border: 1px solid #ccc;
+}
+#cv-template h1 { color: #2563eb; border-bottom: 2px solid #eee; padding-bottom: 10px; }
