@@ -246,13 +246,13 @@ export default function PortfolioWizard() {
               </div>
 
               {/* ── LIVE EXAMPLES ────────────────────────────────────────────── */}
-              {CONFIG.portfolioIntro.liveExamples.filter(ex => ex.name.trim() !== '').length > 0 && (
+              {(CONFIG.portfolioIntro.liveExamples ?? []).filter(ex => ex.name.trim() !== '').length > 0 && (
                 <div className="space-y-4">
                   <h3 className="text-base font-bold text-foreground text-center">
                     Live Examples, Click and see live
                   </h3>
                   <div className="flex flex-wrap justify-center gap-6">
-                    {CONFIG.portfolioIntro.liveExamples
+                    {(CONFIG.portfolioIntro.liveExamples ?? [])
                       .filter(ex => ex.name.trim() !== '')
                       .map((ex, i) => (
                         <a
