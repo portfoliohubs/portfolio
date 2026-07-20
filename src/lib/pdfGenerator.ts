@@ -45,10 +45,32 @@ async function getImageDimensions(dataUrl: string): Promise<{ width: number; hei
   });
 }
 
+async function fetchImageAsDataUrl(url: string): Promise<string | null> {
+  try {
+    const res = await fetch(url);
+    const blob = await res.blob();
+    return await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject();
+      reader.readAsDataURL(blob);
+    });
+  } catch {
+    return null;
+  }
+}
+
 export async function generateCvPdf(data: CvData): Promise<void> {
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const W = 210, H = 297, ML = 18, MR = 18, CW = W - ML - MR;
   const FOOTER_Y = H - 6;
+
+  // Pre-fetch branding logo once for all pages
+  const BRAND_URL  = 'https://portfoliohubs.github.io';
+  const BRAND_NAME = CONFIG.brand.name || 'PortfolioHubs';
+  const logoDataUrl = CONFIG.brand.logoUrl
+    ? await fetchImageAsDataUrl(CONFIG.brand.logoUrl)
+    : null;
 
   function fillPageBackground() {
     applyColor(doc, 'fill', DARK_BACKGROUND);
@@ -271,6 +293,30 @@ export async function generateCvPdf(data: CvData): Promise<void> {
       `${CONFIG.pdf.footerText} ${data.fullName || 'PortfolioHubs'}`,
       W / 2, FOOTER_Y, { align: 'center' }
     );
+
+    // ── BRANDING STAMP — bottom-right, clickable ──────────────────────────────
+    const LOGO_H   = 5.5;   // logo height in mm
+    const LOGO_W   = 5.5;   // logo width  in mm (square)
+    const GAP      = 1.5;   // gap between logo and text
+    const STAMP_Y  = FOOTER_Y - 4; // top of stamp area
+
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(7);
+    applyColor(doc, 'text', MUTED);
+    const textW = doc.getTextWidth(BRAND_NAME);
+    const totalW = (logoDataUrl ? LOGO_W + GAP : 0) + textW;
+    const stampX = W - MR - totalW; // right-aligned to margin
+
+    if (logoDataUrl) {
+      try {
+        doc.addImage(logoDataUrl, 'PNG', stampX, STAMP_Y, LOGO_W, LOGO_H, undefined, 'FAST');
+      } catch { /* skip logo if it fails */ }
+    }
+
+    const textX = stampX + (logoDataUrl ? LOGO_W + GAP : 0);
+    doc.text(BRAND_NAME, textX, STAMP_Y + LOGO_H - 0.5);
+
+    // Clickable area over the entire stamp
+    doc.link(stampX, STAMP_Y, totalW, LOGO_H + 1, { url: BRAND_URL });
   }
 
   const safeName = (data.fullName || 'cv').replace(/[^a-z0-9]/gi, '_').toLowerCase();
